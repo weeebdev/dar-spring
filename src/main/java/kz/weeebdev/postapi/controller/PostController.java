@@ -30,6 +30,11 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllCorrectPosts());
     }
 
+    @GetMapping
+    public ResponseEntity<List<PostModel>> getAllPosts() {
+        return ResponseEntity.ok(postService.getAllPosts());
+    }
+
     @PostMapping
     public ResponseEntity<PostModel> addPost(@RequestBody @Valid PostModel post) {
         return new ResponseEntity<PostModel>(postService.addPost(post), HttpStatus.CREATED);

@@ -26,6 +26,10 @@ public class PostService {
         return postRepository.findCorrect();
     }
 
+    public List<PostModel> getAllPosts() {
+        return postRepository.findAll();
+    }
+
     public PostModel addPost(PostModel post) {
         checkEmail(post);
         return postRepository.insert(post);
