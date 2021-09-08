@@ -2,6 +2,8 @@ package kz.weeebdev.postapi.controller;
 
 import kz.weeebdev.postapi.model.PostModel;
 import kz.weeebdev.postapi.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,16 @@ public class PostController {
 
     private final PostService postService;
 
+    @Autowired
+    Environment env;
+
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
     @GetMapping("/healthCheck")
     public String healthCheck() {
-        return "It's working!";
+        return String.format("It's working on port %s!", env.getProperty("local.server.port"));
     }
 
     @GetMapping("/all")
