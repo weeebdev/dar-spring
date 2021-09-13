@@ -1,25 +1,24 @@
 package kz.weeebdev.postapi.service;
 
+import kz.weeebdev.clientapi.model.ClientModel;
+import kz.weeebdev.postapi.feign.ClientFeign;
 import kz.weeebdev.postapi.model.PostModel;
 import kz.weeebdev.postapi.model.PostStatus;
 import kz.weeebdev.postapi.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PostService {
     private final PostRepository postRepository;
-    private final List<String> whitelist;
 
-    public PostService(PostRepository postRepository) {
+    private final ClientFeign clientFeign;
+
+    public PostService(PostRepository postRepository, ClientFeign clientFeign) {
         this.postRepository = postRepository;
-        this.whitelist = new ArrayList<String>();
-        whitelist.add("a.akhmetov@dar.kz");
-        whitelist.add("mmagzom@dar.kz");
-        whitelist.add("kate@google.com");
+        this.clientFeign = clientFeign;
     }
 
     public List<PostModel> getAllCorrectPosts() {
@@ -44,7 +43,8 @@ public class PostService {
                 .orElseThrow(() -> new RuntimeException(
                         String.format("Cannot find post by id %s", id)));
 
-        savedPost.setEmail(post.getEmail());
+        savedPost.setRecipientId(post.getRecipientId());
+        savedPost.setClientId(post.getClientId());
         savedPost.setMessage(post.getMessage());
 
         checkEmail(savedPost);
@@ -57,7 +57,10 @@ public class PostService {
     }
 
     private void checkEmail(PostModel post) {
-        if (this.whitelist.contains(post.getEmail())) {
+        ClientModel recipient = clientFeign.getClient(post.getRecipientId());
+        ClientModel client = clientFeign.getClient(post.getClientId());
+
+        if (recipient != null && client != null) {
             post.setStatus(PostStatus.CORRECT);
         } else {
             post.setStatus(PostStatus.INCORRECT);

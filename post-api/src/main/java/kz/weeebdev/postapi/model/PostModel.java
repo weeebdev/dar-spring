@@ -18,9 +18,11 @@ public class PostModel {
     @Size(min = 1, message = "Please, enter meaningful message")
     private String message;
 
-    @NotNull
-    @Email(message = "Please, enter email")
-    private String email;
+    @NotNull(message = "Please, enter recipient id")
+    private String recipientId;
+
+    @NotNull(message = "Please, enter your id")
+    private String clientId;
 
     private PostStatus status;
 }

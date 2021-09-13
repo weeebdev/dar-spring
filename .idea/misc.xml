@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/post-api/pom.xml" />
+        <option value="$PROJECT_DIR$/post-gateway-api/pom.xml" />
+        <option value="$PROJECT_DIR$/post-discovery-server/pom.xml" />
+        <option value="$PROJECT_DIR$/company-api/pom.xml" />
+        <option value="$PROJECT_DIR$/client-api/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="16" project-jdk-type="JavaSDK" />
+</project>

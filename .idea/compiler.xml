@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="post-api" />
+        <module name="client-api" />
+        <module name="post-gateway-api" />
+        <module name="post-discovery-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="client-api" target="16" />
+      <module name="post-api" target="16" />
+      <module name="post-discovery-server" target="16" />
+      <module name="post-gateway-api" target="16" />
+      <module name="temp-api" target="16" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="client-api" options="-parameters" />
+      <module name="post-api" options="-parameters" />
+      <module name="post-discovery-server" options="-parameters" />
+      <module name="post-gateway-api" options="-parameters" />
+      <module name="temp-api" options="-parameters" />
+    </option>
+  </component>
+</project>

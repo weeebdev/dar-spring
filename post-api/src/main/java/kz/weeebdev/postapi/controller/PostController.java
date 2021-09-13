@@ -1,6 +1,9 @@
 package kz.weeebdev.postapi.controller;
 
+import kz.weeebdev.clientapi.model.ClientModel;
+import kz.weeebdev.postapi.feign.ClientFeign;
 import kz.weeebdev.postapi.model.PostModel;
+import kz.weeebdev.postapi.model.ViewPostModel;
 import kz.weeebdev.postapi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +25,24 @@ public class PostController {
     @Autowired
     Environment env;
 
+    @Autowired
+    ClientFeign clientFeign;
+
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+
+    private ViewPostModel makeViewPostModel(PostModel post) {
+       ViewPostModel newPost = new ViewPostModel();
+
+       ClientModel recipient = clientFeign.getClient(post.getRecipientId());
+       ClientModel client = clientFeign.getClient(post.getClientId());
+
+       newPost.setMessage(post.getMessage());
+       newPost.setRecipient(recipient.getName());
+       newPost.setClient(client.getName());
+
+       return newPost;
     }
 
     @GetMapping("/healthCheck")
@@ -30,9 +50,21 @@ public class PostController {
         return String.format("It's working on port %s!", env.getProperty("local.server.port"));
     }
 
+    @GetMapping("/check/openfeign/client")
+    public String checkClientFeignClient() {
+        return clientFeign.healthCheck();
+    }
+
     @GetMapping("/all")
-    public ResponseEntity<List<PostModel>> getAllCorrectPosts() {
-        return ResponseEntity.ok(postService.getAllCorrectPosts());
+    public ResponseEntity<List<ViewPostModel>> getAllCorrectPosts() {
+        List<ViewPostModel> newPosts = new ArrayList<>();
+        List<PostModel> posts = postService.getAllCorrectPosts();
+
+        for (PostModel post: posts) {
+            newPosts.add(makeViewPostModel(post));
+        }
+
+        return ResponseEntity.ok(newPosts);
     }
 
     @GetMapping
@@ -49,7 +81,7 @@ public class PostController {
     public ResponseEntity getPost(@PathVariable String id) {
         Optional<PostModel> post = postService.getPost(id);
         if (post.isPresent()) {
-            return ResponseEntity.ok(post);
+            return ResponseEntity.ok(makeViewPostModel(post.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
