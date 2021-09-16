@@ -1,7 +1,7 @@
 package kz.weeebdev.postapi.service;
 
-import kz.weeebdev.clientapi.model.ClientModel;
 import kz.weeebdev.postapi.feign.ClientFeign;
+import kz.weeebdev.postapi.model.ClientResponse;
 import kz.weeebdev.postapi.model.PostModel;
 import kz.weeebdev.postapi.model.PostStatus;
 import kz.weeebdev.postapi.repository.PostRepository;
@@ -57,8 +57,8 @@ public class PostService {
     }
 
     private void checkEmail(PostModel post) {
-        ClientModel recipient = clientFeign.getClient(post.getRecipientId());
-        ClientModel client = clientFeign.getClient(post.getClientId());
+        ClientResponse recipient = clientFeign.getClient(post.getRecipientId());
+        ClientResponse client = clientFeign.getClient(post.getClientId());
 
         if (recipient != null && client != null) {
             post.setStatus(PostStatus.CORRECT);

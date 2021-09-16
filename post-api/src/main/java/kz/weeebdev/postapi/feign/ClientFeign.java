@@ -1,6 +1,6 @@
 package kz.weeebdev.postapi.feign;
 
-import kz.weeebdev.clientapi.model.ClientModel;
+import kz.weeebdev.postapi.model.ClientResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +13,8 @@ public interface ClientFeign {
     public String healthCheck();
 
     @GetMapping("/client/")
-    public List<ClientModel> getAllClients();
+    public List<ClientResponse> getAllClients();
 
     @GetMapping("/client/{id}")
-    public ClientModel getClient(@PathVariable String id);
+    public ClientResponse getClient(@PathVariable String id);
 }

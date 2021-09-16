@@ -1,7 +1,7 @@
 package kz.weeebdev.postapi.controller;
 
-import kz.weeebdev.clientapi.model.ClientModel;
 import kz.weeebdev.postapi.feign.ClientFeign;
+import kz.weeebdev.postapi.model.ClientResponse;
 import kz.weeebdev.postapi.model.PostModel;
 import kz.weeebdev.postapi.model.ViewPostModel;
 import kz.weeebdev.postapi.service.PostService;
@@ -33,16 +33,26 @@ public class PostController {
     }
 
     private ViewPostModel makeViewPostModel(PostModel post) {
-       ViewPostModel newPost = new ViewPostModel();
+        ViewPostModel newPost = new ViewPostModel();
 
-       ClientModel recipient = clientFeign.getClient(post.getRecipientId());
-       ClientModel client = clientFeign.getClient(post.getClientId());
+        ClientResponse recipient = clientFeign.getClient(post.getRecipientId());
+        ClientResponse client = clientFeign.getClient(post.getClientId());
 
-       newPost.setMessage(post.getMessage());
-       newPost.setRecipient(recipient.getName());
-       newPost.setClient(client.getName());
+        newPost.setMessage(post.getMessage());
 
-       return newPost;
+        if (recipient != null) {
+            newPost.setRecipient(recipient.getName());
+        } else {
+            newPost.setRecipient("NOT FOUND");
+        }
+
+        if (client != null) {
+            newPost.setClient(client.getName());
+        } else {
+            newPost.setClient("NOT FOUND");
+        }
+
+        return newPost;
     }
 
     @GetMapping("/healthCheck")
@@ -60,7 +70,7 @@ public class PostController {
         List<ViewPostModel> newPosts = new ArrayList<>();
         List<PostModel> posts = postService.getAllCorrectPosts();
 
-        for (PostModel post: posts) {
+        for (PostModel post : posts) {
             newPosts.add(makeViewPostModel(post));
         }
 
