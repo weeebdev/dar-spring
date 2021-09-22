@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/client-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/client-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/client-payments/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/post-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/post-discovery-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/post-gateway-api/src/main/java" charset="UTF-8" />

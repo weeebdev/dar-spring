@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/client-api/client-api.iml" filepath="$PROJECT_DIR$/client-api/client-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client-payments/client-payments.iml" filepath="$PROJECT_DIR$/client-payments/client-payments.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dar-internship.iml" filepath="$PROJECT_DIR$/.idea/dar-internship.iml" />
       <module fileurl="file://$PROJECT_DIR$/post-api/post-api.iml" filepath="$PROJECT_DIR$/post-api/post-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/post-discovery-server/post-discovery-server.iml" filepath="$PROJECT_DIR$/post-discovery-server/post-discovery-server.iml" />
