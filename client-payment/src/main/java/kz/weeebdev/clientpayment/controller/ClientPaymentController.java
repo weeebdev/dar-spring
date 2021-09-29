@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class ClientPaymentController {
 
     @Autowired
     ClientFeign clientFeign;
+
+    @Autowired
+    KafkaTemplate<String, ClientPaymentResponse> KafkaJsontemplate;
+    String TOPIC_NAME = "random_topic";
 
     @GetMapping("/healthCheck")
     public String healthCheck() {
@@ -90,6 +95,9 @@ public class ClientPaymentController {
 
         if (payment.isPresent()) {
             ClientPaymentResponse clientPaymentResponse = mappingClientPayment(payment.get());
+
+            KafkaJsontemplate.send(TOPIC_NAME, clientPaymentResponse);
+
             return ResponseEntity.ok(clientPaymentResponse);
         } else {
             return ResponseEntity.notFound().build();

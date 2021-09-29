@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="post-api" />
         <module name="client-payment" />
+        <module name="kafka-mailer" />
         <module name="post-discovery-server" />
         <module name="client-api" />
         <module name="post-gateway-api" />
@@ -19,6 +20,7 @@
       <module name="client-payment" target="1.8" />
       <module name="client-payments" target="8" />
       <module name="employee-salary-api" target="16" />
+      <module name="kafka-mailer" target="1.8" />
       <module name="kafka-test" target="1.8" />
       <module name="post-api" target="8" />
       <module name="post-discovery-server" target="8" />
@@ -32,6 +34,7 @@
       <module name="client-payment" options="-parameters" />
       <module name="client-payments" options="-parameters" />
       <module name="employee-salary-api" options="-parameters" />
+      <module name="kafka-mailer" options="-parameters" />
       <module name="kafka-test" options="-parameters" />
       <module name="post-api" options="-parameters" />
       <module name="post-discovery-server" options="-parameters" />

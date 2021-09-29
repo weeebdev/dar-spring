@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/company-api/pom.xml" />
         <option value="$PROJECT_DIR$/client-api/pom.xml" />
         <option value="$PROJECT_DIR$/client-payment/pom.xml" />
+        <option value="$PROJECT_DIR$/kafka-mailer/pom.xml" />
       </list>
     </option>
   </component>
