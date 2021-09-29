@@ -12,4 +12,9 @@ public class Service {
 
     private double cost;
 
+    @Override
+    public String toString() {
+        return String.format("%s: %.2f", serviceType, cost);
+    }
+
 }

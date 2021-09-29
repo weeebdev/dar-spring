@@ -60,7 +60,7 @@ public class ClientPaymentController {
         responseWithPage.setPageSize(clientPaymentEntityPage.getSize());
         responseWithPage.setTotalPages(clientPaymentEntityPage.getTotalPages());
 
-        return new ResponseEntity<ResponseWithPage<List<ClientPaymentResponse>>>(responseWithPage, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseWithPage, HttpStatus.CREATED);
     }
 
     @PostMapping
@@ -84,9 +84,11 @@ public class ClientPaymentController {
 
         ClientPaymentEntity savedPayment = clientPaymentRepository.save(clientPayment);
 
-        ClientPaymentResponse ClientPaymentResponse = mappingClientPayment(savedPayment);
+        ClientPaymentResponse clientPaymentResponse = mappingClientPayment(savedPayment);
 
-        return new ResponseEntity<ClientPaymentResponse>(ClientPaymentResponse, HttpStatus.CREATED);
+        KafkaJsontemplate.send(TOPIC_NAME, clientPaymentResponse);
+
+        return new ResponseEntity<>(clientPaymentResponse, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -95,8 +97,6 @@ public class ClientPaymentController {
 
         if (payment.isPresent()) {
             ClientPaymentResponse clientPaymentResponse = mappingClientPayment(payment.get());
-
-            KafkaJsontemplate.send(TOPIC_NAME, clientPaymentResponse);
 
             return ResponseEntity.ok(clientPaymentResponse);
         } else {
@@ -117,7 +117,7 @@ public class ClientPaymentController {
             ClientResponse client = clientFeign.getClient(clientId);
 
             if (client == null) {
-                return new ResponseEntity<String>("Client not found", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Client not found", HttpStatus.BAD_REQUEST);
             }
 
             clientPayment.setClientId(clientId);
