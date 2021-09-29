@@ -8,27 +8,31 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="post-api" />
-        <module name="client-payments" />
+        <module name="client-payment" />
+        <module name="post-discovery-server" />
         <module name="client-api" />
         <module name="post-gateway-api" />
-        <module name="post-discovery-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="client-api" target="16" />
-      <module name="client-payments" target="16" />
+      <module name="client-api" target="8" />
+      <module name="client-payment" target="1.8" />
+      <module name="client-payments" target="8" />
       <module name="employee-salary-api" target="16" />
-      <module name="post-api" target="16" />
-      <module name="post-discovery-server" target="16" />
-      <module name="post-gateway-api" target="16" />
+      <module name="kafka-test" target="1.8" />
+      <module name="post-api" target="8" />
+      <module name="post-discovery-server" target="8" />
+      <module name="post-gateway-api" target="8" />
       <module name="temp-api" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="client-api" options="-parameters" />
+      <module name="client-payment" options="-parameters" />
       <module name="client-payments" options="-parameters" />
       <module name="employee-salary-api" options="-parameters" />
+      <module name="kafka-test" options="-parameters" />
       <module name="post-api" options="-parameters" />
       <module name="post-discovery-server" options="-parameters" />
       <module name="post-gateway-api" options="-parameters" />
